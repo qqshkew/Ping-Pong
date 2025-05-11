@@ -14,6 +14,9 @@ img_back = 'Background.png'
 img_ball = 'Ball.png'
 img_racket = 'Racket.png'
 
+speed_x = 3
+speed_y = 3
+
 class GameSprite(sprite.Sprite):
     def __init__(self, player_image, player_x, player_y, size_x, size_y, player_speed):
         sprite.Sprite.__init__(self)
@@ -34,7 +37,7 @@ class Player(GameSprite):
         keys = key.get_pressed()
         if keys[K_w] and self.rect.y > 5:
             self.rect.y -= self.speed
-        if keys[K_s] and self.rect.x < win_width - 80:
+        if keys[K_s] and self.rect.x < win_width - 200:
             self.rect.y += self.speed
     def update_r(self):
         keys = key.get_pressed()
@@ -65,6 +68,13 @@ while run:
             run = False
             
     if not finish:
+
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y
+
+        if sprite.collide_rect(racketl, ball) or sprite.collide_rect(racketr, ball):
+                speed_x *= -1
+
         racketl.update_l()
         racketr.update_r()
 
