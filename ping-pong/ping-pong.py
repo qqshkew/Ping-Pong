@@ -8,6 +8,8 @@ win = font1.render('YOU WIN!', True, (0, 0, 0))
 lose1 = font1.render('PLAYER 1 LOSE!', True, (180, 0, 0))
 lose2 = font1.render('PLAYER 2 LOSE!', True, (180, 0, 0))
 
+clock = time.Clock()
+
 run = True
 finish = False
 img_back = 'Background.png'
@@ -95,3 +97,4 @@ while run:
         racketl.reset()
         racketr.reset()
         ball.reset()
+        clock.tick(40)
