@@ -3,10 +3,10 @@ from random import randint
 from time import time as timer
 
 font.init()
-font1 = font.SysFont('Arial', 80)
+font1 = font.Font(None, 35)
 win = font1.render('YOU WIN!', True, (0, 0, 0))
-lose = font1.render('YOU LOSE!', True, (180, 0, 0))
-font2 = font.SysFont('Arial', 36)
+lose1 = font1.render('PLAYER 1 LOSE!', True, (180, 0, 0))
+lose2 = font1.render('PLAYER 2 LOSE!', True, (180, 0, 0))
 
 run = True
 finish = False
@@ -58,7 +58,7 @@ window = display.set_mode((win_width, win_height))
 background = transform.scale(image.load(img_back), (win_width, win_height))
 racketl = Player(img_racket, 5, win_height - 100, 50, 100, 5)
 racketr = Player(img_racket, 650, win_height - 100, 50, 100, 5)
-ball = Ball(img_ball, 300, win_height - 200, 50, 50, 2)
+ball = Ball(img_ball, 300, win_height - 200, 50, 50, 1)
 
 while run:
     run = True
@@ -77,6 +77,15 @@ while run:
 
         if sprite.collide_rect(racketl, ball) or sprite.collide_rect(racketr, ball):
             speed_x *= -1
+
+        if ball.rect.x < 0:
+            finish = True
+            window.blit(lose1, (200, 200))
+
+        if ball.rect.x > 700:
+            finish = True
+            window.blit(lose2, (200, 200))
+
 
         racketl.update_l()
         racketr.update_r()
